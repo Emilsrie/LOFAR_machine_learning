@@ -19,30 +19,39 @@ img = color.rgb2gray(img)
 data = []
 data.append(img)
 
-def flag_img(data, do_plot=False):
-    masks = []
-    for idx, image in enumerate(data):
-        nch = image.shape[0]
-        ntimes = image.shape[1]
+# def flag_img(data, do_plot=False):
+#     masks = []
+#     for idx, image in enumerate(data):
+#         nch = image.shape[0]
+#         ntimes = image.shape[1]
 
-        flagger = aoflagger.AOFlagger()
-        # path = flagger.find_strategy_file(aoflagger.TelescopeId.LOFAR)
-        strategy = flagger.load_strategy_file('/home/emilsrie/MyProjects/LOFAR_machine_learning/aoflag/strategies/lofar_strat.lua')
+#         flagger = aoflagger.AOFlagger()
+#         # path = flagger.find_strategy_file(aoflagger.TelescopeId.LOFAR)
+#         strategy = flagger.load_strategy_file('/home/emilsrie/MyProjects/LOFAR_machine_learning/aoflag/strategies/lofar_strat.lua')
 
-        data = flagger.make_image_set(ntimes, nch, 1)
-        data.set_image_buffer(0, image)  # Real values
+#         data = flagger.make_image_set(ntimes, nch, 1)
+#         data.set_image_buffer(0, image)  # Real values
 
-        flags = strategy.run(data)
-        flag_mask = flags.get_buffer()
+#         flags = strategy.run(data)
+#         flag_mask = flags.get_buffer()
 
-        masks.append(flag_mask)
+#         masks.append(flag_mask)
 
-    return np.array(masks)
+#     return np.array(masks)
 
 
-masks = flag_img(data)
-print(masks[0].shape)
-np.save('vsrc_masks', data)
+
+
+# masks = []
+# masks.append(np.expand_dims(flag_img(data), axis=-1))
+# masks = np.asarray(masks)
+# np.save('vsrc_masks', data)
+
+img = u_f.gray_to_rgb(img)
+print(img.shape)
+data = []
+data.append(img)
+
 
 #masks = np.load('../LOFAR_machine_learning/unet/vsrc_masks.npy')
 
@@ -51,7 +60,7 @@ subset_size = 1000
 unet_version = 'V1'
 unet = keras.models.load_model(f'unet/saved models/saved_unet_{unet_version}/')
 
-X_train, X_test, y_train, y_test = data[0], data[0], masks[0], masks[0]
+X_train, X_test, y_train, y_test = data, data, masks, masks
 index = 0
 u_f.SaveVisualizedResults((X_train, X_test, y_train, y_test), unet, index, random_state, unet_version, True, True)
 
