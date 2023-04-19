@@ -14,18 +14,16 @@ def gray_to_rgb(data):
 
   return np.array(new_data)
 
-def cmyk_to_rgb(image):
-    if image.mode == 'CMYK':
-        image = image.convert('RGB')
-    return image
+def img_to_rgb(image):
+    return image.convert('RGB')
 
 def prepare_vsrc_image(image):
-    image = cmyk_to_rgb(image)
+    image = img_to_rgb(image)
     image = np.asarray(image)
     image = image[:, :-9] # remove white pixels
     image = image[:255, :255]
 
-    return image
+    return np.asarray(image)
 
 def get_train_test_splits(subset_size, random_state):
     path = f'../LOFAR/LOFAR subset {subset_size}/'
