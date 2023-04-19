@@ -6,10 +6,10 @@ from skimage import color
 import pickle
 import os
 
-image_directory = '/home/emilsrie/Desktop/lofar_for_flagging/subset/'
-save_directory = '/home/emilsrie/Desktop/lofar_for_flagging/subset/'
+image_directory = '../LOFAR_machine_learning/LOFAR/LOFAR subset 100/'
+save_directory = '../LOFAR_machine_learning/LOFAR/LOFAR subset 100/'
 
-with open(image_directory + 'LOFAR_subset.pkl', 'rb') as f:
+with open(image_directory + 'LOFAR_subset_100.pkl', 'rb') as f:
     data = pickle.load(f)
 
 
@@ -24,7 +24,7 @@ def flag(data, do_plot=False):
 
         flagger = aoflagger.AOFlagger()
         # path = flagger.find_strategy_file(aoflagger.TelescopeId.LOFAR)
-        strategy = flagger.load_strategy_file('./strategies/lofar_strat.lua')
+        strategy = flagger.load_strategy_file('/home/emilsrie/MyProjects/LOFAR_machine_learning/aoflag/strategies/lofar_strat.lua')
 
         data = flagger.make_image_set(ntimes, nch, 1)
         data.set_image_buffer(0, image)  # Real values
@@ -60,13 +60,8 @@ def flag(data, do_plot=False):
 masks = flag(data, do_plot=False)
 print(masks.shape)
 
-with open(save_directory + 'LOFAR_subset_masks.pkl', 'wb') as f:
+with open(save_directory + 'LOFAR_subset_100_masks_V2.pkl', 'wb') as f:
     pickle.dump(masks, f)
-
-
-
-
-
 
 
 
