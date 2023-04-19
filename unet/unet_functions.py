@@ -83,7 +83,6 @@ def SaveVisualizedResults(train_test_data, model, index, random_state, unet_vers
     plt.ylabel('Frekvence')
 
 
-
     if savefig is True:
         # python program to check if a directory exists
         # Check whether the specified path exists or not

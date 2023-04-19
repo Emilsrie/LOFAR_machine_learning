@@ -2,13 +2,14 @@ import matplotlib.pyplot as plt
 import unet_functions as u_f
 from PIL import Image
 from tensorflow import keras
-import aoflagger
+#import aoflagger
 import numpy as np
 from skimage import color
 import tensorflow as tf
 
 
-path = './LOFAR/VSRC_data/'
+#path = './LOFAR/VSRC_data/'
+path = 'C:/Users/emilsrie/Documents/GitHub/LOFAR_machine_learning/LOFAR/VSRC_data/'
 file = 'bst_SUN_figure1.png'
 
 img = Image.open(path + file)
@@ -52,13 +53,13 @@ print(img.shape)
 data = []
 data.append(img)
 
-
-#masks = np.load('../LOFAR_machine_learning/unet/vsrc_masks.npy')
+masks = np.load('C:/Users/emilsrie/Documents/GitHub/LOFAR_machine_learning/vsrc_masks.npy')
 
 random_state = 100
 subset_size = 1000
 unet_version = 'V1'
-unet = keras.models.load_model(f'unet/saved models/saved_unet_{unet_version}/')
+#unet = keras.models.load_model(f'unet/saved models/saved_unet_{unet_version}/')
+unet = keras.models.load_model(f'C:/Users/emilsrie/Documents/GitHub/LOFAR_machine_learning/unet/saved models/saved_unet_{unet_version}/')
 
 X_train, X_test, y_train, y_test = data, data, masks, masks
 index = 0
