@@ -2,12 +2,13 @@ import matplotlib.pyplot as plt
 import unet_functions as u_f
 from PIL import Image
 from tensorflow import keras
-import aoflagger
+#import aoflagger
 import numpy as np
 from skimage import color
+import tensorflow as tf
 
 
-path = 'LOFAR/VSRC_data/'
+path = '../LOFAR/VSRC_data/'
 file = 'bst_SUN_figure1.png'
 
 img = Image.open(path + file)
@@ -39,11 +40,59 @@ def flag_img(data, do_plot=False):
     return np.array(masks)
 
 
-data = flag_img(data)
-np.save('vsrc_masks', data)
+#data = flag_img(data)
+#np.save('vsrc_masks', data)
 
-# plt.rcParams['figure.figsize'] = [10, 10]
-# plt.subplot(111)
-# plt.imshow(img)
-# plt.show()
+masks = np.load('C:/Users/emilsrie/Documents/GitHub/LOFAR_machine_learning/unet/vsrc_masks.npy')
+
+random_state = 100
+subset_size = 1000
+unet_version = 'V1'
+unet = keras.models.load_model(f'saved models/saved_unet_{unet_version}/')
+
+X_test, y_test = data[0], masks[0]
+
+print(unet.evaluate(X_test, y_test))
+
+img = X_test
+img = img[np.newaxis, ...]
+# print(img.shape)
+
+pred_y = unet.predict(img)
+pred_mask = tf.argmax(pred_y[0], axis=-1)
+pred_mask = pred_mask[..., tf.newaxis]
+
+pred_mask_np = pred_mask.numpy()
+pred_mask_np[pred_mask_np > 0] = 1
+
+# print(pred_mask_np.shape)
+unique, counts = np.unique(pred_mask_np, return_counts=True)
+print(dict(zip(unique, counts)))
+
+fig = plt.figure(figsize=(15, 15))
+fig.tight_layout()
+plt.subplot(131)
+plt.imshow(color.rgb2gray(X_test))
+plt.title('Sākotnējais attēls')
+plt.xlabel('Laiks [s]')
+plt.ylabel('Frekvence')
+
+plt.subplot(132)
+plt.imshow(y_test)
+plt.title('AOFlagger maska')
+plt.xlabel('Laiks [s]')
+plt.ylabel('Frekvence')
+
+plt.subplot(133)
+plt.imshow(pred_mask)
+plt.title('Prognozētie RFI pikseļi')
+plt.xlabel('Laiks [s]')
+plt.ylabel('Frekvence')
+
+
+fig.savefig(f'bst_SUN_figure1_masked.png')
+
+plt.show()
+
+
 
