@@ -60,7 +60,7 @@ def flag(data, do_plot=False):
 masks = flag(data, do_plot=False)
 print(masks.shape)
 
-with open(save_directory + 'LOFAR_subset_100_masks_V2.pkl', 'wb') as f:
+with open(save_directory + 'LOFAR_subset_100_masks.pkl', 'wb') as f:
     pickle.dump(masks, f)
 
 
