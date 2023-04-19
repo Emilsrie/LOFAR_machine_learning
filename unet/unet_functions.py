@@ -6,13 +6,26 @@ import matplotlib.pyplot as plt
 import tensorflow as tf
 import os
 
-def make_imgs_rgb(data):
+def gray_to_rgb(data):
   new_data = []
-  for idx, d in enumerate(data):
+  for d in data:
     new_d = color.gray2rgb(d)
     new_data.append(new_d)
 
   return np.array(new_data)
+
+def cmyk_to_rgb(image):
+    if image.mode == 'CMYK':
+        image = image.convert('RGB')
+    return image
+
+def prepare_vsrc_image(image):
+    image = cmyk_to_rgb(image)
+    image = np.asarray(image)
+    image = image[:, :-9] # remove white pixels
+    image = image[:255, :255]
+
+    return image
 
 def get_train_test_splits(subset_size, random_state):
     path = f'../LOFAR/LOFAR subset {subset_size}/'
@@ -27,13 +40,13 @@ def get_train_test_splits(subset_size, random_state):
         image_data = np.squeeze(image_data, axis=-1)
 
     X_train, X_test, y_train, y_test = train_test_split(image_data, mask_data, test_size=0.2, random_state=random_state)
-    X_train = make_imgs_rgb(X_train)
-    X_test = make_imgs_rgb(X_test)
+    X_train = gray_to_rgb(X_train)
+    X_test = gray_to_rgb(X_test)
 
     return (X_train, X_test, y_train, y_test)
 
 
-def VisualizeResults(train_test_data, model, index, random_state, unet_version, savefig=False):
+def SaveVisualizedResults(train_test_data, model, index, random_state, unet_version, showplot=False, savefig=False):
     X_train, X_test, y_train, y_test = train_test_data[0], train_test_data[1], train_test_data[2], train_test_data[3],
     img = X_test[index]
     img = img[np.newaxis, ...]
@@ -70,7 +83,7 @@ def VisualizeResults(train_test_data, model, index, random_state, unet_version, 
     plt.xlabel('Laiks [s]')
     plt.ylabel('Frekvence')
 
-    #plt.show()
+
 
     if savefig is True:
         # python program to check if a directory exists
@@ -82,4 +95,5 @@ def VisualizeResults(train_test_data, model, index, random_state, unet_version, 
             os.makedirs(save_path)
         fig.savefig(save_path + f'/r_state{random_state}_idx{index}.png')
 
-    #plt.close()
+    if showplot is True:
+        plt.show()

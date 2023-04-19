@@ -17,14 +17,15 @@ from skimage import color
 
 # for bulding and running deep learning model
 import tensorflow as tf
-from tensorflow.keras.layers import Input
-from tensorflow.keras.layers import Conv2D
-from tensorflow.keras.layers import MaxPooling2D
-from tensorflow.keras.layers import Dropout 
-from tensorflow.keras.layers import BatchNormalization
-from tensorflow.keras.layers import Conv2DTranspose
-from tensorflow.keras.layers import concatenate
-from tensorflow.keras.losses import binary_crossentropy
+from tensorflow import keras
+from keras.layers import Input
+from keras.layers import Conv2D
+from keras.layers import MaxPooling2D
+from keras.layers import Dropout
+from keras.layers import BatchNormalization
+from keras.layers import Conv2DTranspose
+from keras.layers import concatenate
+from keras.losses import binary_crossentropy
 from sklearn.model_selection import train_test_split
 
 import pickle
@@ -225,12 +226,12 @@ unet.save(f'./saved models/saved_unet_{unet_version}', overwrite=True)
 
 # Add any index to contrast the predicted mask with actual mask
 index = 3
-u_f.VisualizeResults(train_test_data=train_test_data,
-                     model=unet,
-                     index=index,
-                     random_state=random_state,
-                     unet_version=unet_version,
-                     savefig=False)
+u_f.SaveVisualizedResults(train_test_data=train_test_data,
+                          model=unet,
+                          index=index,
+                          random_state=random_state,
+                          unet_version=unet_version,
+                          savefig=False)
 
 
 
