@@ -7,6 +7,18 @@ import numpy as np
 from skimage import color
 import tensorflow as tf
 
+def img_to_rgb(image):
+    return image.convert('RGB')
+
+def prepare_vsrc_image(image):
+    image = img_to_rgb(image)
+    image = np.asarray(image)
+    image = image[:, :-9] # remove white pixels
+    image = image[:512, :512]
+    print(image.shape)
+
+    return np.asarray(image)
+
 
 #path = './LOFAR/VSRC_data/'
 path = 'C:/Users/emilsrie/Documents/GitHub/LOFAR_machine_learning/LOFAR/VSRC_data/'

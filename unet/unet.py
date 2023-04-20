@@ -7,8 +7,9 @@ Based on: https://github.com/VidushiBhatia/U-Net-Implementation/blob/main/U_Net_
 old: https://colab.research.google.com/drive/1D5jXqKNjuDu8wx-Qb8tsA7E2hLJ3E_66
 """
 
-import os
-os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+# Don't display errors
+
+#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -27,16 +28,39 @@ from keras.layers import Conv2DTranspose
 from keras.layers import concatenate
 from keras.losses import binary_crossentropy
 from sklearn.model_selection import train_test_split
-
+import os
 import pickle
-import unet_functions as u_f
+
+# Check GPU compatability
+print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
+print(tf.config.list_physical_devices('GPU'))
+
+
+def gray_to_rgb(data):
+  new_data = []
+  for d in data:
+    new_d = color.gray2rgb(d)
+    new_data.append(new_d)
+
+  return np.array(new_data)
 
 random_state = 100
-subset_size = 1000
+subset_size = 100
 
-# train_test_data = X_train, X_test, y_train, y_test
-train_test_data = u_f.get_train_test_splits(subset_size, random_state)
-X_train, X_test, y_train, y_test = train_test_data[0], train_test_data[1], train_test_data[2], train_test_data[3],
+path = f'./LOFAR/LOFAR subset {subset_size}/'
+images_path = path + f'LOFAR_subset_{subset_size}.pkl'
+masks_path = path + f'LOFAR_subset_{subset_size}_masks.pkl'
+
+with open(images_path, 'rb') as f:
+    image_data = pickle.load(f)
+
+with open(masks_path, 'rb') as f:
+    mask_data = pickle.load(f)
+    image_data = np.squeeze(image_data, axis=-1)
+
+X_train, X_test, y_train, y_test = train_test_split(image_data, mask_data, test_size=0.2, random_state=random_state)
+X_train = gray_to_rgb(X_train)
+X_test = gray_to_rgb(X_test)
 
 x_input, y_input = 512, 512
 
@@ -188,7 +212,7 @@ unet.compile(optimizer=tf.keras.optimizers.Adam(),
 # Run the model in a mini-batch fashion and compute the progress for each epoch
 results = unet.fit(X_train, 
                    y_train, 
-                   batch_size=32,
+                   batch_size=1,
                    epochs=4,
                    validation_data=(X_test, y_test))
 
@@ -220,18 +244,62 @@ axis[1].legend()
 print(unet.evaluate(X_test, y_test))
 
 # save model
-unet_version = 'V3_1000'
+unet_version = 'V2_100'
 unet.save(f'./saved models/saved_unet_{unet_version}', overwrite=True)
 
+def VisualizeResults(showplot=False, savefig=False):
+    img = X_test[index]
+    img = img[np.newaxis, ...]
+    #print(img.shape)
+
+    pred_y = unet.predict(img)
+    pred_mask = tf.argmax(pred_y[0], axis=-1)
+    pred_mask = pred_mask[..., tf.newaxis]
+
+    pred_mask_np = pred_mask.numpy()
+    pred_mask_np[pred_mask_np > 0] = 1
+
+    #print(pred_mask_np.shape)
+    unique, counts = np.unique(pred_mask_np, return_counts=True)
+    print(dict(zip(unique, counts)))
+
+    fig = plt.figure(figsize=(15, 15))
+    fig.tight_layout()
+    plt.subplot(131)
+    plt.imshow(color.rgb2gray(X_test[index]))
+    plt.title('Sākotnējais attēls')
+    plt.xlabel('Laiks [s]')
+    plt.ylabel('Frekvence')
+
+    plt.subplot(132)
+    plt.imshow(y_test[index])
+    plt.title('AOFlagger maska')
+    plt.xlabel('Laiks [s]')
+    plt.ylabel('Frekvence')
+
+    plt.subplot(133)
+    plt.imshow(pred_mask)
+    plt.title('Prognozētie RFI pikseļi')
+    plt.xlabel('Laiks [s]')
+    plt.ylabel('Frekvence')
+
+
+    if savefig is True:
+        # python program to check if a directory exists
+        # Check whether the specified path exists or not
+        save_path = f'./unet/saved_figs/unet_{unet_version}/'
+        isExist = os.path.exists(save_path)
+        if not isExist:
+            # Create a new directory because it does not exist
+            os.makedirs(save_path)
+        fig.savefig(save_path + f'/r_state{random_state}_idx{index}.png')
+
+    if showplot is True:
+        plt.show()
 
 # Add any index to contrast the predicted mask with actual mask
 index = 3
-u_f.SaveVisualizedResults(train_test_data=train_test_data,
-                          model=unet,
-                          index=index,
-                          random_state=random_state,
-                          unet_version=unet_version,
-                          savefig=False)
+VisualizeResults(showplot=False, savefig=False)
 
 
 
