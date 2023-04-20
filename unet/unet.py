@@ -11,22 +11,19 @@ old: https://colab.research.google.com/drive/1D5jXqKNjuDu8wx-Qb8tsA7E2hLJ3E_66
 
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
+
+
 import numpy as np
 import matplotlib.pyplot as plt
-
 from skimage import color
-
 # for bulding and running deep learning model
 import tensorflow as tf
-from tensorflow import keras
-from keras.layers import Input
-from keras.layers import Conv2D
-from keras.layers import MaxPooling2D
-from keras.layers import Dropout
-from keras.layers import BatchNormalization
-from keras.layers import Conv2DTranspose
-from keras.layers import concatenate
-from keras.losses import binary_crossentropy
+#from tensorflow import keras
+from tensorflow.keras.layers import Input
+from tensorflow.keras.layers import Conv2D
+from tensorflow.keras.layers import BatchNormalization
+from tensorflow.keras.layers import Conv2DTranspose
+from tensorflow.keras.layers import concatenate
 from sklearn.model_selection import train_test_split
 import os
 import pickle
@@ -212,7 +209,7 @@ unet.compile(optimizer=tf.keras.optimizers.Adam(),
 # Run the model in a mini-batch fashion and compute the progress for each epoch
 results = unet.fit(X_train, 
                    y_train, 
-                   batch_size=1,
+                   batch_size=5,
                    epochs=4,
                    validation_data=(X_test, y_test))
 
