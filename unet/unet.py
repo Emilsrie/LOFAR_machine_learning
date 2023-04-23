@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 """
-###Unet V2 that is using LOFAR image set (100 images out of 74k smthn) with the size 512x512
+###Unet V2 that is using LOFAR image set (1000 images out of 74k) with the size 512x512
 dataset based on: https://github.com/mesarcik/RFI-NLN/tree/d3a7b1d662422518c1d343d4cf5ac81d40e45723
 Based on: https://github.com/VidushiBhatia/U-Net-Implementation/blob/main/U_Net_for_Image_Segmentation_From_Scratch_Using_TensorFlow_v4.ipynb
 old: https://colab.research.google.com/drive/1D5jXqKNjuDu8wx-Qb8tsA7E2hLJ3E_66
@@ -11,19 +11,17 @@ old: https://colab.research.google.com/drive/1D5jXqKNjuDu8wx-Qb8tsA7E2hLJ3E_66
 
 #os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
-
-
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage import color
 # for bulding and running deep learning model
 import tensorflow as tf
-#from tensorflow import keras
-from tensorflow.keras.layers import Input
-from tensorflow.keras.layers import Conv2D
-from tensorflow.keras.layers import BatchNormalization
-from tensorflow.keras.layers import Conv2DTranspose
-from tensorflow.keras.layers import concatenate
+from tensorflow import keras
+from keras.layers import Input
+from keras.layers import Conv2D
+from keras.layers import BatchNormalization
+from keras.layers import Conv2DTranspose
+from keras.layers import concatenate
 from sklearn.model_selection import train_test_split
 import os
 import pickle
@@ -42,9 +40,9 @@ def gray_to_rgb(data):
   return np.array(new_data)
 
 random_state = 100
-subset_size = 100
+subset_size = 1000
 
-path = f'./LOFAR/LOFAR subset {subset_size}/'
+path = f'../LOFAR/LOFAR subset {subset_size}/'
 images_path = path + f'LOFAR_subset_{subset_size}.pkl'
 masks_path = path + f'LOFAR_subset_{subset_size}_masks.pkl'
 
@@ -106,7 +104,7 @@ def EncoderMiniBlock(inputs, n_filters=32, dropout_prob=0.3, max_pooling=True):
     # Pooling has been kept as optional as the last encoder layer does not use pooling (hence, makes the encoder block flexible to use)
     # Below, Max pooling considers the maximum of the input slice for output computation and uses stride of 2 to traverse across input image
     if max_pooling:
-        next_layer = tf.keras.layers.MaxPooling2D(pool_size = (2,2))(conv)    
+        next_layer = tf.keras.layers.MaxPooling2D(pool_size=(2, 2))(conv)
     else:
         next_layer = conv
 
@@ -127,8 +125,8 @@ def DecoderMiniBlock(prev_layer_input, skip_layer_input, n_filters=32):
     # Start with a transpose convolution layer to first increase the size of the image
     up = Conv2DTranspose(
                  n_filters,
-                 (3,3),    # Kernel size
-                 strides=(2,2),
+                 (3, 3),    # Kernel size
+                 strides=(2, 2),
                  padding='same')(prev_layer_input)
 
     # Merge the skip connection from previous block to prevent information loss
@@ -209,7 +207,7 @@ unet.compile(optimizer=tf.keras.optimizers.Adam(),
 # Run the model in a mini-batch fashion and compute the progress for each epoch
 results = unet.fit(X_train, 
                    y_train, 
-                   batch_size=5,
+                   batch_size=16,
                    epochs=4,
                    validation_data=(X_test, y_test))
 
@@ -223,12 +221,12 @@ results = unet.fit(X_train,
 # To check for bias and variance plit the graphs for accuracy 
 # I have plotted for loss too, this helps in confirming if the loss is decreasing with each iteration - hence, the model is optimizing fine
 fig, axis = plt.subplots(1, 2, figsize=(20, 5))
-axis[0].plot(results.history["loss"], color='r', label = 'train loss')
-axis[0].plot(results.history["val_loss"], color='b', label = 'validation loss')
+axis[0].plot(results.history["loss"], color='r', label='train loss')
+axis[0].plot(results.history["val_loss"], color='b', label='validation loss')
 axis[0].set_title('Loss Comparison')
 axis[0].legend()
-axis[1].plot(results.history["accuracy"], color='r', label = 'train accuracy')
-axis[1].plot(results.history["val_accuracy"], color='b', label = 'validation accuracy')
+axis[1].plot(results.history["accuracy"], color='r', label='train accuracy')
+axis[1].plot(results.history["val_accuracy"], color='b', label='validation accuracy')
 axis[1].set_title('Accuracy Comparison')
 axis[1].legend()
 
@@ -241,10 +239,10 @@ axis[1].legend()
 print(unet.evaluate(X_test, y_test))
 
 # save model
-unet_version = 'V2_100'
-unet.save(f'./saved models/saved_unet_{unet_version}', overwrite=True)
+unet_version = 'V2_1000'
+unet.save(f'../unet/saved models/saved_unet_{unet_version}', overwrite=True)
 
-def VisualizeResults(showplot=False, savefig=False):
+def VisualizeResults(index, showplot=False, savefig=False):
     img = X_test[index]
     img = img[np.newaxis, ...]
     #print(img.shape)
@@ -296,7 +294,7 @@ def VisualizeResults(showplot=False, savefig=False):
 
 # Add any index to contrast the predicted mask with actual mask
 index = 3
-VisualizeResults(showplot=False, savefig=False)
+VisualizeResults(index, showplot=False, savefig=False)
 
 
 

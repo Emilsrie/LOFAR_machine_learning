@@ -28,7 +28,7 @@ img = Image.open(path + file)
 img = u_f.prepare_vsrc_image(img)
 print(img.shape)
 
-img = color.rgb2gray(img)
+img = color.rgb2gray(img).T
 data = []
 data.append(img)
 
@@ -66,6 +66,9 @@ data = []
 data.append(img)
 
 masks = np.load('C:/Users/emilsrie/Documents/GitHub/LOFAR_machine_learning/vsrc_masks.npy')
+mask = masks[0].T
+masks = []
+masks.append(mask)
 
 random_state = 100
 subset_size = 1000
@@ -75,7 +78,7 @@ unet = keras.models.load_model(f'C:/Users/emilsrie/Documents/GitHub/LOFAR_machin
 
 X_train, X_test, y_train, y_test = data, data, masks, masks
 index = 0
-u_f.SaveVisualizedResults((X_train, X_test, y_train, y_test), unet, index, random_state, unet_version, True, True)
+u_f.SaveVisualizedResults((X_train, X_test, y_train, y_test), unet, index, random_state, unet_version, True, False)
 
 
 
