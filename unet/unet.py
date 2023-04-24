@@ -1,15 +1,12 @@
 # -*- coding: utf-8 -*-
 
 """
-###Unet V2 that is using LOFAR image set (1000 images out of 74k) with the size 512x512
+###Unet V2 that is using LOFAR image set (100 or 1000 images out of 74k) with the size 512x512
 dataset based on: https://github.com/mesarcik/RFI-NLN/tree/d3a7b1d662422518c1d343d4cf5ac81d40e45723
 Based on: https://github.com/VidushiBhatia/U-Net-Implementation/blob/main/U_Net_for_Image_Segmentation_From_Scratch_Using_TensorFlow_v4.ipynb
 old: https://colab.research.google.com/drive/1D5jXqKNjuDu8wx-Qb8tsA7E2hLJ3E_66
 """
 
-# Don't display errors
-
-#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -25,6 +22,9 @@ from keras.layers import concatenate
 from sklearn.model_selection import train_test_split
 import os
 import pickle
+
+# Don't display errors
+#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 # Check GPU compatability
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
