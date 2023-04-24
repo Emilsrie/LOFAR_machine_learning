@@ -7,9 +7,7 @@ Based on: https://github.com/VidushiBhatia/U-Net-Implementation/blob/main/U_Net_
 old: https://colab.research.google.com/drive/1D5jXqKNjuDu8wx-Qb8tsA7E2hLJ3E_66
 """
 
-# Don't display errors
 
-#os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
 
 import numpy as np
 import matplotlib.pyplot as plt
@@ -26,79 +24,94 @@ from sklearn.model_selection import train_test_split
 import os
 import pickle
 
+# Don't display errors
+# os.environ['TF_CPP_MIN_LOG_LEVEL'] = '2'
+
 # Check GPU compatability
 print("Num GPUs Available: ", len(tf.config.list_physical_devices('GPU')))
 print(tf.config.list_physical_devices('GPU'))
 
 
-def gray_to_rgb(data):
-  new_data = []
-  for d in data:
-    new_d = color.gray2rgb(d)
-    new_data.append(new_d)
-
-  return np.array(new_data)
-
 random_state = 100
-subset_size = 1000
 
-path = f'../LOFAR/LOFAR subset {subset_size}/'
-images_path = path + f'LOFAR_subset_{subset_size}.pkl'
-masks_path = path + f'LOFAR_subset_{subset_size}_masks.pkl'
+images_path = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/images/images.pkl'
+cleaned_images_path = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/cleaned_images/cleaned_images.pkl'
+
 
 with open(images_path, 'rb') as f:
-    image_data = pickle.load(f)
+    images = pickle.load(f)
 
-with open(masks_path, 'rb') as f:
-    mask_data = pickle.load(f)
-    image_data = np.squeeze(image_data, axis=-1)
+with open(cleaned_images_path, 'rb') as f:
+    cleaned_images = pickle.load(f)
+    #mask_data = np.squeeze(mask_data, axis=-1)
 
-X_train, X_test, y_train, y_test = train_test_split(image_data, mask_data, test_size=0.2, random_state=random_state)
-X_train = gray_to_rgb(X_train)
-X_test = gray_to_rgb(X_test)
+def rgba_to_gray(images):
+    new_images = []
+    for im in images:
+        im = color.rgba2rgb(im)
+        im = color.rgb2gray(im)
+        im = ((im - im.min()) * (1/(im.max() - im.min()) * 255)).astype('uint8')
+        new_images.append(im)
+    return np.asarray(new_images)
 
-x_input, y_input = 512, 512
+X_train, X_test, y_train, y_test = train_test_split(images, cleaned_images, test_size=0.1, random_state=random_state)
+
+X_train = rgba_to_gray(X_train)
+print(X_train[0].shape)
+print(X_train[0])
+X_test = rgba_to_gray(X_test)
+print(X_test[0].shape)
+y_train = rgba_to_gray(y_train)
+print(y_train[0].shape)
+y_test = rgba_to_gray(y_test)
+print(y_test[0].shape)
+
+
+
+x_input, y_input = 992, 992
 
 """Smthn smthn false flagging rate here"""
 
 fig = plt.figure(figsize=(20, 25))
 plt.subplot(121)
-plt.imshow(color.rgb2gray(X_train[0]))
+plt.imshow(X_train[100])
 
 plt.subplot(122)
-plt.imshow(y_train[0])
+plt.imshow(y_train[100])
 
-plt.show()
+#plt.show()
+
 """# 2. Create the model
 
 # 2.1 - U-Net Encoder Block
 """
 
+
 def EncoderMiniBlock(inputs, n_filters=32, dropout_prob=0.3, max_pooling=True):
     """
-    This block uses multiple convolution layers, max pool, relu activation to create an architecture for learning. 
-    Dropout can be added for regularization to prevent overfitting. 
+    This block uses multiple convolution layers, max pool, relu activation to create an architecture for learning.
+    Dropout can be added for regularization to prevent overfitting.
     The block returns the activation values for next layer along with a skip connection which will be used in the decoder
     """
-    # Add 2 Conv Layers with relu activation and HeNormal initialization using TensorFlow 
-    # Proper initialization prevents from the problem of exploding and vanishing gradients 
-    # 'Same' padding will pad the input to conv layer such that the output has the same height and width (hence, is not reduced in size) 
-    conv = Conv2D(n_filters, 
-                  3,   # Kernel size   
+    # Add 2 Conv Layers with relu activation and HeNormal initialization using TensorFlow
+    # Proper initialization prevents from the problem of exploding and vanishing gradients
+    # 'Same' padding will pad the input to conv layer such that the output has the same height and width (hence, is not reduced in size)
+    conv = Conv2D(n_filters,
+                  3,  # Kernel size
                   activation='relu',
                   padding='same',
                   kernel_initializer='HeNormal')(inputs)
-    conv = Conv2D(n_filters, 
-                  3,   # Kernel size
+    conv = Conv2D(n_filters,
+                  3,  # Kernel size
                   activation='relu',
                   padding='same',
                   kernel_initializer='HeNormal')(conv)
-    
+
     # Batch Normalization will normalize the output of the last layer based on the batch's mean and standard deviation
     conv = BatchNormalization()(conv, training=False)
 
     # In case of overfitting, dropout will regularize the loss and gradient computation to shrink the influence of weights on output
-    if dropout_prob > 0:     
+    if dropout_prob > 0:
         conv = tf.keras.layers.Dropout(dropout_prob)(conv)
 
     # Pooling reduces the size of the image while keeping the number of channels same
@@ -109,12 +122,14 @@ def EncoderMiniBlock(inputs, n_filters=32, dropout_prob=0.3, max_pooling=True):
     else:
         next_layer = conv
 
-    # skip connection (without max pooling) will be input to the decoder layer to prevent information loss during transpose convolutions      
+    # skip connection (without max pooling) will be input to the decoder layer to prevent information loss during transpose convolutions
     skip_connection = conv
-    
+
     return next_layer, skip_connection
 
+
 """# 2.2 - U-Net Decoder Block"""
+
 
 def DecoderMiniBlock(prev_layer_input, skip_layer_input, n_filters=32):
     """
@@ -125,62 +140,64 @@ def DecoderMiniBlock(prev_layer_input, skip_layer_input, n_filters=32):
     """
     # Start with a transpose convolution layer to first increase the size of the image
     up = Conv2DTranspose(
-                 n_filters,
-                 (3, 3),    # Kernel size
-                 strides=(2, 2),
-                 padding='same')(prev_layer_input)
+        n_filters,
+        (3, 3),  # Kernel size
+        strides=(2, 2),
+        padding='same')(prev_layer_input)
 
     # Merge the skip connection from previous block to prevent information loss
     merge = concatenate([up, skip_layer_input], axis=3)
-    
+
     # Add 2 Conv Layers with relu activation and HeNormal initialization for further processing
     # The parameters for the function are similar to encoder
-    conv = Conv2D(n_filters, 
-                 3,     # Kernel size
-                 activation='relu',
-                 padding='same',
-                 kernel_initializer='HeNormal')(merge)
     conv = Conv2D(n_filters,
-                 3,   # Kernel size
-                 activation='relu',
-                 padding='same',
-                 kernel_initializer='HeNormal')(conv)
+                  3,  # Kernel size
+                  activation='relu',
+                  padding='same',
+                  kernel_initializer='HeNormal')(merge)
+    conv = Conv2D(n_filters,
+                  3,  # Kernel size
+                  activation='relu',
+                  padding='same',
+                  kernel_initializer='HeNormal')(conv)
     return conv
+
 
 """# 2.3 - Compile U-Net Blocks"""
 
-def UNetCompiled(input_size=(x_input, y_input, 3), n_filters=32, n_classes=3):
+
+def UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=256):
     """
     Combine both encoder and decoder blocks according to the U-Net research paper
-    Return the model as output 
+    Return the model as output
     """
-    # Input size represent the size of 1 image (the size used for pre-processing) 
+    # Input size represent the size of 1 image (the size used for pre-processing)
     inputs = Input(input_size)
 
     # Encoder includes multiple convolutional mini blocks with different maxpooling, dropout and filter parameters
-    # Observe that the filters are increasing as we go deeper into the network which will increasse the # channels of the image 
+    # Observe that the filters are increasing as we go deeper into the network which will increasse the # channels of the image
     cblock1 = EncoderMiniBlock(inputs, n_filters, dropout_prob=0, max_pooling=True)
-    cblock2 = EncoderMiniBlock(cblock1[0], n_filters*2, dropout_prob=0, max_pooling=True)
-    cblock3 = EncoderMiniBlock(cblock2[0], n_filters*4, dropout_prob=0, max_pooling=True)
-    cblock4 = EncoderMiniBlock(cblock3[0], n_filters*8, dropout_prob=0.3, max_pooling=True)
-    cblock5 = EncoderMiniBlock(cblock4[0], n_filters*16, dropout_prob=0.3, max_pooling=False) 
+    cblock2 = EncoderMiniBlock(cblock1[0], n_filters * 2, dropout_prob=0, max_pooling=True)
+    cblock3 = EncoderMiniBlock(cblock2[0], n_filters * 4, dropout_prob=0, max_pooling=True)
+    cblock4 = EncoderMiniBlock(cblock3[0], n_filters * 8, dropout_prob=0.3, max_pooling=True)
+    cblock5 = EncoderMiniBlock(cblock4[0], n_filters * 16, dropout_prob=0.3, max_pooling=False)
 
     # Decoder includes multiple mini blocks with decreasing number of filters
     # Observe the skip connections from the encoder are given as input to the decoder
     # Recall the 2nd output of encoder block was skip connection, hence cblockn[1] is used
-    ublock6 = DecoderMiniBlock(cblock5[0], cblock4[1],  n_filters * 8)
-    ublock7 = DecoderMiniBlock(ublock6, cblock3[1],  n_filters * 4)
-    ublock8 = DecoderMiniBlock(ublock7, cblock2[1],  n_filters * 2)
-    ublock9 = DecoderMiniBlock(ublock8, cblock1[1],  n_filters)
+    ublock6 = DecoderMiniBlock(cblock5[0], cblock4[1], n_filters * 8)
+    ublock7 = DecoderMiniBlock(ublock6, cblock3[1], n_filters * 4)
+    ublock8 = DecoderMiniBlock(ublock7, cblock2[1], n_filters * 2)
+    ublock9 = DecoderMiniBlock(ublock8, cblock1[1], n_filters)
 
     # Complete the model with 1 3x3 convolution layer (Same as the prev Conv Layers)
-    # Followed by a 1x1 Conv layer to get the image to the desired size. 
+    # Followed by a 1x1 Conv layer to get the image to the desired size.
     # Observe the number of channels will be equal to number of output classes
     conv9 = Conv2D(n_filters,
-                3,
-                activation='relu',
-                padding='same',
-                kernel_initializer='he_normal')(ublock9)
+                   3,
+                   activation='relu',
+                   padding='same',
+                   kernel_initializer='he_normal')(ublock9)
 
     conv10 = Conv2D(n_classes, 1, padding='same')(conv9)
 
@@ -189,10 +206,11 @@ def UNetCompiled(input_size=(x_input, y_input, 3), n_filters=32, n_classes=3):
 
     return model
 
+
 """#3.2 - Build U-Net Architecture"""
 
 # Call the helper function for defining the layers for the model, given the input image size
-unet = UNetCompiled(input_size=(x_input, y_input, 3), n_filters=32, n_classes=3)
+unet = UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=256)
 
 # Check the summary to better interpret how the output dimensions change in each layer
 unet.summary()
@@ -201,15 +219,16 @@ unet.summary()
 
 # There are multiple optimizers, loss functions and metrics that can be used to compile multi-class segmentation models
 # Ideally, try different options to get the best accuracy
-unet.compile(optimizer=tf.keras.optimizers.Adam(), 
+unet.compile(optimizer=tf.keras.optimizers.Adam(),
+             # Try loss=tf.keras.losses.BinaryCrossentropy(),
              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['accuracy'])
+             metrics=['accuracy'])
 
 # Run the model in a mini-batch fashion and compute the progress for each epoch
-results = unet.fit(X_train, 
-                   y_train, 
-                   batch_size=16,
-                   epochs=4,
+results = unet.fit(X_train,
+                   y_train,
+                   batch_size=2,  # 4 is absolute max
+                   epochs=10,
                    validation_data=(X_test, y_test))
 
 """# 4 - Evaluate Model Results
@@ -219,7 +238,7 @@ results = unet.fit(X_train,
 
 # High Bias is a characteristic of an underfitted model and we would observe low accuracies for both train and validation set
 # High Variance is a characterisitic of an overfitted model and we would observe high accuracy for train set and low for validation set
-# To check for bias and variance plit the graphs for accuracy 
+# To check for bias and variance plit the graphs for accuracy
 # I have plotted for loss too, this helps in confirming if the loss is decreasing with each iteration - hence, the model is optimizing fine
 fig, axis = plt.subplots(1, 2, figsize=(20, 5))
 axis[0].plot(results.history["loss"], color='r', label='train loss')
@@ -234,18 +253,18 @@ axis[1].legend()
 # RESULTS
 # The train loss is consistently decreasing showing that Adam is able to optimize the model and find the minima
 
-
 """## 4.2 - View Predicted Segmentations#"""
 print(unet.evaluate(X_test, y_test))
 
 # save model
-unet_version = 'V2_1000'
+unet_version = 'V3_vsrc'
 unet.save(f'../unet/saved models/saved_unet_{unet_version}', overwrite=True)
+
 
 def VisualizeResults(index, showplot=False, savefig=False):
     img = X_test[index]
     img = img[np.newaxis, ...]
-    #print(img.shape)
+    # print(img.shape)
 
     pred_y = unet.predict(img)
     pred_mask = tf.argmax(pred_y[0], axis=-1)
@@ -254,7 +273,7 @@ def VisualizeResults(index, showplot=False, savefig=False):
     pred_mask_np = pred_mask.numpy()
     pred_mask_np[pred_mask_np > 0] = 1
 
-    #print(pred_mask_np.shape)
+    # print(pred_mask_np.shape)
     unique, counts = np.unique(pred_mask_np, return_counts=True)
     print(dict(zip(unique, counts)))
 
@@ -278,7 +297,6 @@ def VisualizeResults(index, showplot=False, savefig=False):
     plt.xlabel('Laiks [s]')
     plt.ylabel('Frekvence')
 
-
     if savefig is True:
         # python program to check if a directory exists
         # Check whether the specified path exists or not
@@ -292,10 +310,8 @@ def VisualizeResults(index, showplot=False, savefig=False):
     if showplot is True:
         plt.show()
 
+
 # Add any index to contrast the predicted mask with actual mask
 index = 3
-VisualizeResults(index, showplot=False, savefig=False)
-
-
-
+VisualizeResults(index, showplot=True, savefig=True)
 

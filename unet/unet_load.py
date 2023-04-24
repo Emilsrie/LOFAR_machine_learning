@@ -21,9 +21,9 @@ def make_imgs_rgb(data):
   return np.array(new_data)
 
 
-path = '../LOFAR/LOFAR subset 100/'
-images_path = path + 'LOFAR_subset_100.pkl'
-masks_path = path + 'LOFAR_subset_100_masks.pkl'
+path = f'../LOFAR/LOFAR subset {subset_size}/'
+images_path = path + f'LOFAR_subset_{subset_size}.pkl'
+masks_path = path + f'LOFAR_subset_{subset_size}_masks.pkl'
 
 with open(images_path, 'rb') as f:
     image_data = pickle.load(f)
@@ -36,7 +36,6 @@ with open(masks_path, 'rb') as f:
 image_data = np.squeeze(image_data, axis=-1)
 
 
-random_state=100
 # Use scikit-learn's function to split the dataset
 # Here, I have used 20% data as test/valid set
 X_train, X_test, y_train, y_test = train_test_split(image_data, mask_data, test_size=0.2, random_state=random_state)
@@ -98,7 +97,7 @@ def VisualizeResults(index, showplot=False, savefig=False):
 
 
 index = 19
-VisualizeResults(index, True, False)
+VisualizeResults(index, True, True)
 """
 Really good picture with unet_V1, random_state=100 and index 2
 Really good picture with unet_V1, random_state=100 and index 19
