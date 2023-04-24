@@ -35,31 +35,39 @@ print(tf.config.list_physical_devices('GPU'))
 random_state = 100
 
 images_path = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/images/images.pkl'
-cleaned_images_path = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/cleaned_images/cleaned_images.pkl'
+mask_path = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/mask_images/rfi_mask_images.pkl'
 
 
 with open(images_path, 'rb') as f:
     images = pickle.load(f)
 
-with open(cleaned_images_path, 'rb') as f:
+with open(mask_path, 'rb') as f:
     cleaned_images = pickle.load(f)
     #mask_data = np.squeeze(mask_data, axis=-1)
+
+def rgba_to_gray_and_normalize(images):
+    new_images = []
+    for im in images:
+        im = color.rgba2rgb(im)
+        im = color.rgb2gray(im)
+        im = ((im - im.min()) * (1 / (im.max() - im.min()) * 255)).astype('uint8')
+        new_images.append(im)
+    return np.asarray(new_images)
 
 def rgba_to_gray(images):
     new_images = []
     for im in images:
         im = color.rgba2rgb(im)
         im = color.rgb2gray(im)
-        im = ((im - im.min()) * (1/(im.max() - im.min()) * 255)).astype('uint8')
         new_images.append(im)
     return np.asarray(new_images)
 
+
 X_train, X_test, y_train, y_test = train_test_split(images, cleaned_images, test_size=0.1, random_state=random_state)
 
-X_train = rgba_to_gray(X_train)
+X_train = rgba_to_gray_and_normalize(X_train)
 print(X_train[0].shape)
-print(X_train[0])
-X_test = rgba_to_gray(X_test)
+X_test = rgba_to_gray_and_normalize(X_test)
 print(X_test[0].shape)
 y_train = rgba_to_gray(y_train)
 print(y_train[0].shape)
@@ -166,7 +174,7 @@ def DecoderMiniBlock(prev_layer_input, skip_layer_input, n_filters=32):
 """# 2.3 - Compile U-Net Blocks"""
 
 
-def UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=256):
+def UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=2):
     """
     Combine both encoder and decoder blocks according to the U-Net research paper
     Return the model as output
@@ -210,7 +218,7 @@ def UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=256):
 """#3.2 - Build U-Net Architecture"""
 
 # Call the helper function for defining the layers for the model, given the input image size
-unet = UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=256)
+unet = UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=2)
 
 # Check the summary to better interpret how the output dimensions change in each layer
 unet.summary()
@@ -228,7 +236,7 @@ unet.compile(optimizer=tf.keras.optimizers.Adam(),
 results = unet.fit(X_train,
                    y_train,
                    batch_size=2,  # 4 is absolute max
-                   epochs=10,
+                   epochs=1,
                    validation_data=(X_test, y_test))
 
 """# 4 - Evaluate Model Results

@@ -8,8 +8,8 @@ import tensorflow as tf
 import os
 
 random_state = 100
-subset_size = 1000
-unet_version = 'V1'
+subset_size = 100
+unet_version = 'V0'
 
 
 def make_imgs_rgb(data):
@@ -45,6 +45,7 @@ X_test = make_imgs_rgb(X_test)
 
 unet = keras.models.load_model(f'saved models/saved_unet_{unet_version}/')
 print(unet.evaluate(X_test, y_test))
+
 
 def VisualizeResults(index, showplot=False, savefig=False):
     img = X_test[index]
@@ -88,7 +89,7 @@ def VisualizeResults(index, showplot=False, savefig=False):
     if savefig is True:
         # python program to check if a directory exists
         # Check whether the specified path exists or not
-        save_path = f'./unet/saved_figs/unet_{unet_version}/'
+        save_path = f'./saved_figs/unet_{unet_version}/'
         isExist = os.path.exists(save_path)
         if not isExist:
             # Create a new directory because it does not exist
@@ -96,7 +97,7 @@ def VisualizeResults(index, showplot=False, savefig=False):
         fig.savefig(save_path + f'/r_state{random_state}_idx{index}.png')
 
 
-index = 19
+index = 0
 VisualizeResults(index, True, True)
 """
 Really good picture with unet_V1, random_state=100 and index 2

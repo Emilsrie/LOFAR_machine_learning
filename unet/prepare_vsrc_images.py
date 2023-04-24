@@ -9,10 +9,12 @@ import pickle
 image_directory = 'C:/Users/emilsrie/Desktop/lofar_observations/results/'
 
 image_save_directory = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/images/'
-cleaned_image_save_directory = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/cleaned_images/'
+#cleaned_image_save_directory = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/cleaned_images/'
+rfi_mask_save_directory = 'C:/Users/emilsrie/Desktop/lofar_observations/vsrc_lofar_for_training/mask_images/'
 
 image_paths = []
-cleaned_image_paths = []
+#cleaned_image_paths = []
+mask_paths = []
 
 def get_dirs(rootdir):
     for file in os.listdir(rootdir):
@@ -24,8 +26,10 @@ def get_dirs(rootdir):
         elif os.path.isfile(data_file):
             if '_ax1_figure' in data_file:
                 image_paths.append(data_file)
-            if 'sumax1_figure' in data_file:
-                cleaned_image_paths.append(data_file)
+            # if 'sumax1_figure' in data_file:
+            #     cleaned_image_paths.append(data_file)
+            if 'just_rfiax1_figure' in data_file:
+                mask_paths.append(data_file)
 
 
 def get_images(image_paths):
@@ -75,8 +79,10 @@ def generate_images(images, save_directory, pkl_file_name):
 
 get_dirs(image_directory)
 
-images = get_images(image_paths)
-cleaned_images = get_images(cleaned_image_paths)
+#images = get_images(image_paths)
+#cleaned_images = get_images(cleaned_image_paths)
+rfi_mask_images = get_images(mask_paths)
 
-generate_images(images, image_save_directory, 'images')
-generate_images(cleaned_images, cleaned_image_save_directory, 'cleaned_images')
+#generate_images(images, image_save_directory, 'images')
+#generate_images(cleaned_images, cleaned_image_save_directory, 'cleaned_images')
+generate_images(rfi_mask_images, rfi_mask_save_directory, 'rfi_mask_images')
