@@ -12,11 +12,17 @@ unet_load.py for loading already trained models from LOFAR_machine_learning/save
 
 /check_gpu has scripts to check gpu availability for tensorflow and pytorch
 
+
+
+
 **LOFAR_machine_learning/aoflag**
 
 flag_images.py generate masks for RFI pixels
 
 /strategies/flag_images.py lua files for aoflagger strategies
+
+
+
 
 **LOFAR_machine_learning/LOFAR**
 
