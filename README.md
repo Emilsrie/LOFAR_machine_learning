@@ -33,3 +33,9 @@ flag_images.py generate masks for RFI pixels
 save_subset.py for generating subsets of images from original LOFAR Long Term Archive images (total amount 72 thousand images)
 
 check_subset.py for checking images in generated subsets
+
+## NOT ON GIT
+LOFAR data (bst format) before image creation
+VSRC code for spetogram creation
+Generated spectogram images and prepared dataset
+
