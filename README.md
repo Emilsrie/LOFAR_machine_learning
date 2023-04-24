@@ -1,6 +1,6 @@
 # LOFAR_machine_learning
 
-<h4>LOFAR_machine_learning/unet<h4>
+### LOFAR_machine_learning/unet
 
 unet.py for training the model using LOFAR Long Term Archive images
 
@@ -15,7 +15,7 @@ unet_load.py for loading already trained models from LOFAR_machine_learning/save
 
 
 
-<h4>LOFAR_machine_learning/aoflag<h4>
+### LOFAR_machine_learning/aoflag
 
 flag_images.py generate masks for RFI pixels
 
@@ -24,7 +24,7 @@ flag_images.py generate masks for RFI pixels
 
 
 
-<h4>LOFAR_machine_learning/LOFARh4>
+### LOFAR_machine_learning/LOFAR
 
 /LOFAR subset 100/ pkl files for 100 LOFAR Long Term Archive images and generated AOFlagger masks (not on GIT)
 
