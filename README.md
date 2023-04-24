@@ -23,7 +23,8 @@ flag_images.py generate masks for RFI pixels</br>
 /VSRC_data/ VSRC LOFAR generated image examples (Currently not )
 save_subset.py for generating subsets of images from original LOFAR Long Term Archive images (total amount 72 thousand images)</br>
 check_subset.py for checking images in generated subsets</br>
-</br>Download dataset from: https://zenodo.org/record/6724065#.ZEbiCnZBybi and use save_subset.py to generate necessary subsets**</br>
+</br>
+Download dataset from: https://zenodo.org/record/6724065#.ZEbiCnZBybi and use save_subset.py to generate necessary subsets**</br>
 
 ## NOT ON GIT
 LOFAR data (bst format) before image creation</br>
