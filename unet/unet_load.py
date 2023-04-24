@@ -9,7 +9,7 @@ import os
 
 random_state = 100
 subset_size = 100
-unet_version = 'V0'
+unet_version = 'V2_1000'
 
 
 def make_imgs_rgb(data):
@@ -36,19 +36,23 @@ with open(masks_path, 'rb') as f:
 image_data = np.squeeze(image_data, axis=-1)
 
 
+
 # Use scikit-learn's function to split the dataset
 # Here, I have used 20% data as test/valid set
 X_train, X_test, y_train, y_test = train_test_split(image_data, mask_data, test_size=0.2, random_state=random_state)
 X_train = make_imgs_rgb(X_train)
 X_test = make_imgs_rgb(X_test)
 
+image_data = make_imgs_rgb(image_data)
 
 unet = keras.models.load_model(f'saved models/saved_unet_{unet_version}/')
 print(unet.evaluate(X_test, y_test))
 
 
+#def VisualizeResults(index, showplot=False, savefig=False):
 def VisualizeResults(index, showplot=False, savefig=False):
-    img = X_test[index]
+    #img = X_test[index]
+    img = image_data[index]
     img = img[np.newaxis, ...]
     #print(img.shape)
 
@@ -66,13 +70,15 @@ def VisualizeResults(index, showplot=False, savefig=False):
     fig = plt.figure(figsize=(15, 15))
     fig.tight_layout()
     plt.subplot(131)
-    plt.imshow(color.rgb2gray(X_test[index]))
+    #plt.imshow(color.rgb2gray(X_test[index]))
+    plt.imshow(color.rgb2gray(image_data[index]))
     plt.title('Sākotnējais attēls')
     plt.xlabel('Laiks [s]')
     plt.ylabel('Frekvence')
 
     plt.subplot(132)
-    plt.imshow(y_test[index])
+    #plt.imshow(y_test[index])
+    plt.imshow(mask_data[index])
     plt.title('AOFlagger maska')
     plt.xlabel('Laiks [s]')
     plt.ylabel('Frekvence')
@@ -82,6 +88,8 @@ def VisualizeResults(index, showplot=False, savefig=False):
     plt.title('Prognozētie RFI pikseļi')
     plt.xlabel('Laiks [s]')
     plt.ylabel('Frekvence')
+
+    plt.tight_layout()
 
     if showplot is True:
         plt.show()
@@ -96,9 +104,14 @@ def VisualizeResults(index, showplot=False, savefig=False):
             os.makedirs(save_path)
         fig.savefig(save_path + f'/r_state{random_state}_idx{index}.png')
 
+    plt.close()
 
-index = 0
-VisualizeResults(index, True, True)
+
+index = 10
+for i in range(100):
+    VisualizeResults(i, False, True)
+
+
 """
 Really good picture with unet_V1, random_state=100 and index 2
 Really good picture with unet_V1, random_state=100 and index 19
