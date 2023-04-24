@@ -35,7 +35,7 @@ save_subset.py for generating subsets of images from original LOFAR Long Term Ar
 check_subset.py for checking images in generated subsets
 
 ## NOT ON GIT
-LOFAR data (bst format) before image creation
+LOFAR data (bst format) before image creation</br>
 VSRC code for spetogram creation
 Generated spectogram images and prepared dataset
 
