@@ -9,7 +9,7 @@ import os
 
 random_state = 100
 subset_size = 100
-unet_version = 'V2_1000'
+unet_version = 'V3_100'
 
 
 def make_imgs_rgb(data):
@@ -108,8 +108,7 @@ def VisualizeResults(index, showplot=False, savefig=False):
 
 
 index = 10
-for i in range(100):
-    VisualizeResults(i, False, True)
+VisualizeResults(index, True, False)
 
 
 """

@@ -38,7 +38,7 @@ def gray_to_rgb(data):
   return np.array(new_data)
 
 random_state = 100
-subset_size = 1000
+subset_size = 100
 
 path = f'../LOFAR/LOFAR subset {subset_size}/'
 images_path = path + f'LOFAR_subset_{subset_size}.pkl'
@@ -147,7 +147,7 @@ def DecoderMiniBlock(prev_layer_input, skip_layer_input, n_filters=32):
 
 """# 2.3 - Compile U-Net Blocks"""
 
-def UNetCompiled(input_size=(x_input, y_input, 3), n_filters=32, n_classes=3):
+def UNetCompiled(input_size=(x_input, y_input, 3), n_filters=32, n_classes=2):
     """
     Combine both encoder and decoder blocks according to the U-Net research paper
     Return the model as output 
@@ -201,7 +201,7 @@ unet.summary()
 # Ideally, try different options to get the best accuracy
 unet.compile(optimizer=tf.keras.optimizers.Adam(), 
              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-              metrics=['accuracy'])
+             metrics=['accuracy'])
 
 # Run the model in a mini-batch fashion and compute the progress for each epoch
 results = unet.fit(X_train, 
@@ -237,7 +237,7 @@ axis[1].legend()
 print(unet.evaluate(X_test, y_test))
 
 # save model
-unet_version = 'V2_1000'
+unet_version = 'V3_100'
 unet.save(f'../unet/saved models/saved_unet_{unet_version}', overwrite=True)
 
 def VisualizeResults(index, showplot=False, savefig=False):
