@@ -34,7 +34,7 @@ def normalize(im):
 
 
 random_state = 100
-subset_size = 1000
+subset_size = 100
 
 path = f'../LOFAR/LOFAR subset {subset_size}/'
 images_path = path + f'LOFAR_subset_{subset_size}.pkl'
@@ -201,13 +201,14 @@ unet.summary()
 # Ideally, try different options to get the best accuracy
 unet.compile(optimizer=tf.keras.optimizers.Adam(), 
              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
+             #metrics=[keras.metrics.RootMeanSquaredError(), keras.metrics.MeanIoU(2), ['accuracy']])
              metrics=[keras.metrics.RootMeanSquaredError(), ['accuracy']])
 
 # Run the model in a mini-batch fashion and compute the progress for each epoch
 results = unet.fit(X_train, 
                    y_train, 
                    batch_size=8,
-                   epochs=100,
+                   epochs=1,
                    validation_data=(X_test, y_test))
 
 """# 4 - Evaluate Model Results
@@ -238,7 +239,7 @@ fig.savefig('plots.png')
 print(unet.evaluate(X_test, y_test))
 
 # save model
-unet_version = 'V5_1000_real'
+unet_version = 'V4_test'
 unet.save(f'../unet/saved models/saved_unet_{unet_version}', overwrite=True)
 unet.save_weights(f'../unet/saved model weights/saved_unet_{unet_version}', overwrite=True)
 
