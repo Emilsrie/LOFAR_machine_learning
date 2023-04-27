@@ -28,6 +28,6 @@ Download dataset from: https://zenodo.org/record/6724065#.ZEbiCnZBybi and use sa
 
 ## NOT ON GIT
 LOFAR data (bst format) before image creation</br>
-VSRC created code for spetogram creation</br>
+VSRC created code for spectogram creation</br>
 Generated spectogram images and prepared dataset</br>
 
