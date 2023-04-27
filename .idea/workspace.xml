@@ -1,8 +1,112 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6095674b-0f0d-47f7-905c-7aca3e06eb2b" name="Changes" comment="update unet.py file">
+    <list default="true" id="6095674b-0f0d-47f7-905c-7aca3e06eb2b" name="Changes" comment="Uptade model metric">
+      <change afterPath="$PROJECT_DIR$/unet/saved models/saved_unet_V3_1000/README" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/unet/saved models/saved_unet_V4_test/README" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx1.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx1.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx10.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx10.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx11.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx11.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx12.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx12.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx13.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx13.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx14.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx14.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx15.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx15.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx16.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx16.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx17.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx17.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx18.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx18.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx19.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx19.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx2.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx2.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx20.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx20.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx21.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx21.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx22.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx22.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx23.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx23.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx24.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx24.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx25.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx25.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx26.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx26.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx27.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx27.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx28.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx28.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx29.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx29.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx3.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx3.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx30.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx30.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx31.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx31.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx32.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx32.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx33.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx33.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx34.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx34.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx35.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx35.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx36.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx36.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx37.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx37.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx38.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx38.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx39.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx39.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx4.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx4.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx40.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx40.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx41.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx41.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx42.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx42.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx43.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx43.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx44.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx44.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx45.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx45.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx46.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx46.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx47.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx47.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx48.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx48.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx49.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx49.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx5.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx5.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx50.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx50.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx51.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx51.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx52.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx52.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx53.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx53.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx54.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx54.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx55.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx55.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx56.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx56.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx57.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx57.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx58.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx58.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx59.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx59.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx6.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx6.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx60.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx60.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx61.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx61.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx62.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx62.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx63.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx63.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx64.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx64.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx65.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx65.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx66.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx66.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx67.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx67.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx68.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx68.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx69.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx69.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx7.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx7.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx70.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx70.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx71.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx71.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx72.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx72.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx73.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx73.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx74.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx74.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx75.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx75.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx76.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx76.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx77.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx77.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx78.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx78.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx79.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx79.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx8.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx8.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx80.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx80.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx81.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx81.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx82.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx82.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx83.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx83.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx84.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx84.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx85.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx85.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx86.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx86.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx87.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx87.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx88.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx88.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx89.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx89.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx9.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx9.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx90.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx90.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx91.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx91.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx92.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx92.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx93.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx93.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx94.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx94.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx95.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx95.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx96.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx96.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx97.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx97.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx98.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx98.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx99.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx99.png" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/unet.py" beforeDir="false" afterPath="$PROJECT_DIR$/unet/unet.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/unet_load.py" beforeDir="false" afterPath="$PROJECT_DIR$/unet/unet_load.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/unet/unet_vsrc.py" beforeDir="false" afterPath="$PROJECT_DIR$/unet/unet_vsrc.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -19,14 +123,46 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "last_opened_file_path": "C:/Users/emilsrie/Documents/GitHub/LOFAR_machine_learning/unet/saved models/saved_unet_V4_test"
   }
-}</component>
+}]]></component>
+  <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\emilsrie\Documents\GitHub\LOFAR_machine_learning\unet\saved models\saved_unet_V4_test" />
+      <recent name="C:\Users\emilsrie\Documents\GitHub\LOFAR_machine_learning\unet\saved models\saved_unet_V3_1000" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\emilsrie\Documents\GitHub\LOFAR_machine_learning\unet" />
+    </key>
+  </component>
   <component name="RunManager" selected="Python.unet_load">
+    <configuration name="unet" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
+      <module name="LOFAR_machine_learning" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/unet" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/unet/unet.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="unet_load" type="PythonConfigurationType" factoryName="Python" temporary="true" nameIsGenerated="true">
       <module name="LOFAR_machine_learning" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -74,6 +210,7 @@
     <recent_temporary>
       <list>
         <item itemvalue="Python.unet_load" />
+        <item itemvalue="Python.unet" />
         <item itemvalue="Python.unet_vsrc" />
       </list>
     </recent_temporary>
@@ -88,6 +225,10 @@
       <updated>1682342968870</updated>
       <workItem from="1682342971763" duration="2322000" />
       <workItem from="1682366815947" duration="1231000" />
+      <workItem from="1682522867746" duration="2701000" />
+      <workItem from="1682528379630" duration="282000" />
+      <workItem from="1682528686641" duration="349000" />
+      <workItem from="1682544421989" duration="14206000" />
     </task>
     <task id="LOCAL-00001" summary="update files">
       <created>1682346329511</created>
@@ -117,7 +258,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682361857046</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Change code">
+      <created>1682523148598</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1682523148598</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Uptade model metric">
+      <created>1682528407055</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1682528407055</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -139,10 +294,13 @@
     <MESSAGE value="Generated images" />
     <MESSAGE value="delete unneeded file" />
     <MESSAGE value="update unet.py file" />
-    <option name="LAST_COMMIT_MESSAGE" value="update unet.py file" />
+    <MESSAGE value="Change code" />
+    <MESSAGE value="Uptade model metric" />
+    <option name="LAST_COMMIT_MESSAGE" value="Uptade model metric" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/LOFAR_machine_learning$unet_load.coverage" NAME="unet_load Coverage Results" MODIFIED="1682360434961" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unet" />
+    <SUITE FILE_PATH="coverage/LOFAR_machine_learning$unet_load.coverage" NAME="unet_load Coverage Results" MODIFIED="1682594607056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unet" />
     <SUITE FILE_PATH="coverage/LOFAR_machine_learning$unet_vsrc.coverage" NAME="unet_vsrc Coverage Results" MODIFIED="1682358544160" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unet" />
+    <SUITE FILE_PATH="coverage/LOFAR_machine_learning$unet.coverage" NAME="unet Coverage Results" MODIFIED="1682587850667" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unet" />
   </component>
 </project>

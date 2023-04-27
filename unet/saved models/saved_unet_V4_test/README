@@ -1,0 +1,6 @@
+trained on 100 grayscale samples
+batch_size = 4
+
+if epochs = 1
+Loss, RMSE, Accuracy
+[25535.80078125, 1919918.5, 0.7407743334770203]

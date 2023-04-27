@@ -247,14 +247,15 @@ results = unet.fit(X_train,
 # To check for bias and variance plit the graphs for accuracy
 # I have plotted for loss too, this helps in confirming if the loss is decreasing with each iteration - hence, the model is optimizing fine
 fig, axis = plt.subplots(1, 2, figsize=(20, 5))
-axis[0].plot(results.history["loss"], color='r', label='train loss')
-axis[0].plot(results.history["val_loss"], color='b', label='validation loss')
-axis[0].set_title('Loss Comparison')
+axis[0].plot(results.history["loss"], color='r', label='Apmācību datu zaudējumi')
+axis[0].plot(results.history["val_loss"], color='b', label='Testa datu zaudējumi')
+axis[0].set_title('Zaudējumu salīdzinājums')
 axis[0].legend()
-axis[1].plot(results.history["accuracy"], color='r', label='train accuracy')
-axis[1].plot(results.history["val_accuracy"], color='b', label='validation accuracy')
-axis[1].set_title('Accuracy Comparison')
+axis[1].plot(results.history["accuracy"], color='r', label='Apmācību datu precizitāte')
+axis[1].plot(results.history["val_accuracy"], color='b', label='Testa datu precizitāte')
+axis[1].set_title('Precizitāšu salīdzinājums')
 axis[1].legend()
+plt.show()
 
 # RESULTS
 # The train loss is consistently decreasing showing that Adam is able to optimize the model and find the minima
