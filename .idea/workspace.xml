@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6095674b-0f0d-47f7-905c-7aca3e06eb2b" name="Changes" comment="Uptade model metric">
-      <change afterPath="$PROJECT_DIR$/unet/saved models/saved_unet_V3_1000/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/unet/saved models/saved_unet_V4_test/README" afterDir="false" />
+    <list default="true" id="6095674b-0f0d-47f7-905c-7aca3e06eb2b" name="Changes" comment="update gitignore">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx1.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx1.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx10.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx10.png" afterDir="false" />
@@ -104,14 +102,18 @@
       <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx97.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx97.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx98.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx98.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx99.png" beforeDir="false" afterPath="$PROJECT_DIR$/unet/saved_figs/unet_V1/r_state100_idx99.png" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unet/unet.py" beforeDir="false" afterPath="$PROJECT_DIR$/unet/unet.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unet/unet_load.py" beforeDir="false" afterPath="$PROJECT_DIR$/unet/unet_load.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/unet/unet_vsrc.py" beforeDir="false" afterPath="$PROJECT_DIR$/unet/unet_vsrc.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Python Script" />
+      </list>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -228,7 +230,7 @@
       <workItem from="1682522867746" duration="2701000" />
       <workItem from="1682528379630" duration="282000" />
       <workItem from="1682528686641" duration="349000" />
-      <workItem from="1682544421989" duration="14206000" />
+      <workItem from="1682544421989" duration="14692000" />
     </task>
     <task id="LOCAL-00001" summary="update files">
       <created>1682346329511</created>
@@ -272,7 +274,21 @@
       <option name="project" value="LOCAL" />
       <updated>1682528407055</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="update code (unet trains on grayscale images now)">
+      <created>1682594721157</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1682594721157</updated>
+    </task>
+    <task id="LOCAL-00008" summary="update gitignore">
+      <created>1682594817449</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1682594817449</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -296,7 +312,9 @@
     <MESSAGE value="update unet.py file" />
     <MESSAGE value="Change code" />
     <MESSAGE value="Uptade model metric" />
-    <option name="LAST_COMMIT_MESSAGE" value="Uptade model metric" />
+    <MESSAGE value="update code (unet trains on grayscale images now)" />
+    <MESSAGE value="update gitignore" />
+    <option name="LAST_COMMIT_MESSAGE" value="update gitignore" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/LOFAR_machine_learning$unet_load.coverage" NAME="unet_load Coverage Results" MODIFIED="1682594607056" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/unet" />
