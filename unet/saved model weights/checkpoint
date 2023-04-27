@@ -1,0 +1,2 @@
+model_checkpoint_path: "saved_unet_V4_test"
+all_model_checkpoint_paths: "saved_unet_V4_test"
