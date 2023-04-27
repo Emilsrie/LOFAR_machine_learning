@@ -9,6 +9,7 @@ __pycache__/
 LOFAR/LOFAR subset 100
 LOFAR/LOFAR subset 1000
 
+unet/saved_figs
 
 # C extensions
 *.so
