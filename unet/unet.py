@@ -32,16 +32,9 @@ print(tf.config.list_physical_devices('GPU'))
 def normalize(im):
     return ((im - im.min()) * (1 / (im.max() - im.min()) * 255)).astype('uint8')
 
-def gray_to_rgb(data):
-  new_data = []
-  for d in data:
-    new_d = color.gray2rgb(d)
-    new_data.append(new_d)
-
-  return np.array(new_data)
 
 random_state = 100
-subset_size = 100
+subset_size = 1000
 
 path = f'../LOFAR/LOFAR subset {subset_size}/'
 images_path = path + f'LOFAR_subset_{subset_size}.pkl'
@@ -55,29 +48,25 @@ with open(masks_path, 'rb') as f:
     mask_data = pickle.load(f)
     mask_data = np.expand_dims(mask_data, axis=-1)
 
-
 X_train, X_test, y_train, y_test = train_test_split(image_data, mask_data, test_size=0.2, random_state=random_state)
-#X_train = gray_to_rgb(X_train)
-#X_test = gray_to_rgb(X_test)
-
 print(X_train[0].shape)
 print(y_train[0].shape)
 
-x_input, y_input = 512, 512
+x_input, y_input, dimensions = 512, 512, 1
 
 """Smthn smthn false flagging rate here"""
 
 fig = plt.figure(figsize=(20, 25))
 plt.subplot(121)
-#plt.imshow(color.rgb2gray(X_train[0]))
 plt.imshow(X_train[0])
 
 plt.subplot(122)
 plt.imshow(y_train[0])
 
 plt.show()
-"""# 2. Create the model
 
+
+"""# 2. Create the model
 # 2.1 - U-Net Encoder Block
 """
 
@@ -124,7 +113,6 @@ def EncoderMiniBlock(inputs, n_filters=32, dropout_prob=0.3, max_pooling=True):
 
 """# 2.2 - U-Net Decoder Block"""
 
-
 def DecoderMiniBlock(prev_layer_input, skip_layer_input, n_filters=32):
     """
     Decoder Block first uses transpose convolution to upscale the image to a bigger size and then,
@@ -159,8 +147,7 @@ def DecoderMiniBlock(prev_layer_input, skip_layer_input, n_filters=32):
 
 """# 2.3 - Compile U-Net Blocks"""
 
-
-def UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=2):
+def UNetCompiled(input_size=(x_input, y_input, dimensions), n_filters=32, n_classes=2):
     """
     Combine both encoder and decoder blocks according to the U-Net research paper
     Return the model as output
@@ -203,7 +190,7 @@ def UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=2):
 """#3.2 - Build U-Net Architecture"""
 
 # Call the helper function for defining the layers for the model, given the input image size
-unet = UNetCompiled(input_size=(x_input, y_input, 1), n_filters=32, n_classes=2)
+unet = UNetCompiled(input_size=(x_input, y_input, dimensions), n_filters=32, n_classes=2)
 
 # Check the summary to better interpret how the output dimensions change in each layer
 unet.summary()
@@ -214,18 +201,16 @@ unet.summary()
 # Ideally, try different options to get the best accuracy
 unet.compile(optimizer=tf.keras.optimizers.Adam(), 
              loss=tf.keras.losses.SparseCategoricalCrossentropy(from_logits=True),
-             #metrics=['accuracy'])
              metrics=[keras.metrics.RootMeanSquaredError(), ['accuracy']])
 
 # Run the model in a mini-batch fashion and compute the progress for each epoch
 results = unet.fit(X_train, 
                    y_train, 
-                   batch_size=4,
-                   epochs=10,
+                   batch_size=8,
+                   epochs=100,
                    validation_data=(X_test, y_test))
 
 """# 4 - Evaluate Model Results
-
 ## 4.1 - Bias Variance Check
 """
 
@@ -253,7 +238,7 @@ fig.savefig('plots.png')
 print(unet.evaluate(X_test, y_test))
 
 # save model
-unet_version = 'V4_test'
+unet_version = 'V5_1000_real'
 unet.save(f'../unet/saved models/saved_unet_{unet_version}', overwrite=True)
 unet.save_weights(f'../unet/saved model weights/saved_unet_{unet_version}', overwrite=True)
 
@@ -280,17 +265,10 @@ def VisualizeResults(index, showplot=False, savefig=False):
     #plt.imshow(color.rgb2gray(X_test[index]))
 
     # Increase contrast
-    #original_im = color.rgb2gray(image_data[index])
     original_im = image_data[index]
-    #normalized_im = normalize(original_im)
-    #print(normalized_im)
-    # print(normalized_im.shape)
-    #print(np.min(normalized_im))
-    #print(np.max(normalized_im))
+    normalized_im = normalize(original_im)
 
-
-    #plt.imshow(normalized_im, vmin=0, vmax=15)
-    plt.imshow(original_im)
+    plt.imshow(normalized_im, vmin=0, vmax=15)
     plt.title('Sākotnējais attēls')
     plt.xlabel('Laiks [s]')
     plt.ylabel('Frekvence')
@@ -314,7 +292,6 @@ def VisualizeResults(index, showplot=False, savefig=False):
         plt.show()
 
     if savefig is True:
-        # python program to check if a directory exists
         # Check whether the specified path exists or not
         save_path = f'./saved_figs/unet_{unet_version}/'
         isExist = os.path.exists(save_path)
@@ -327,7 +304,7 @@ def VisualizeResults(index, showplot=False, savefig=False):
 
 # Add any index to contrast the predicted mask with actual mask
 index = 3
-VisualizeResults(index, showplot=False, savefig=False)
+VisualizeResults(index, showplot=True, savefig=False)
 
 
 
